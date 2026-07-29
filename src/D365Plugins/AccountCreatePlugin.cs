@@ -18,13 +18,10 @@ namespace D365.Plugins
             var context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
             if (context == null) return;
 
-            // Ensure this runs only for account Create in PreOperation to match intended behavior
             if (!string.Equals(context.MessageName, "Create", StringComparison.OrdinalIgnoreCase)) return;
             if (!string.Equals(context.PrimaryEntityName, "account", StringComparison.OrdinalIgnoreCase)) return;
-            // PreOperation stage is 20
             if (context.Stage != 20) return;
 
-            // Prevent recursion
             if (context.Depth > 1)
             {
                 tracing?.Trace("AccountCreatePlugin: Skipping because Depth > 1");
@@ -35,7 +32,6 @@ namespace D365.Plugins
 
             try
             {
-                // For PreOperation stage: modifying the Target entity will be saved with the create operation.
                 entity[DescriptionAttribute] = DescriptionText;
             }
             catch (Exception ex)
