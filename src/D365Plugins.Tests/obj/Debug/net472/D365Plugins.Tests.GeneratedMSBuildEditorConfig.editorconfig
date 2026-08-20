@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = D365Plugins.Tests
+build_property.ProjectDir = D:\Akash\GitHub\D365_Plugin\src\D365Plugins.Tests\
